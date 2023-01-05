@@ -11,10 +11,15 @@ import Homepage from './pages/Homepage';
 let theme = createTheme({
   palette: {
     primary: {
-      main: "#DADADA",
+      main: "#FFFFFF",
     },
     secondary: {
-      main: "#ED711F",
+      main: "#2C3E7F",
+    },
+    text: {
+      main: "#FFFFFF",
+      darkBlue: "#2C3E7F",
+      lightBlue: "#476FFB",
     },
   },
   typography: {
