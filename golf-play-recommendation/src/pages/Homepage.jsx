@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Card,
-  createTheme,
-  Grid,
-  Icon,
-  Paper,
-  styled,
-} from "@mui/material";
+import { Box, Button, Grid, Paper, styled } from "@mui/material";
 import * as React from "react";
 import "../assets/scss/Homepage.scss";
 import "../assets/scss/Homepage768px.scss";
@@ -26,6 +17,8 @@ import AirIcon from "@mui/icons-material/Air";
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import OpacityTwoToneIcon from "@mui/icons-material/OpacityTwoTone";
 import FutureWeathers from "../data/FutureWeather";
+import getDate from "../utils/GetDate";
+import GetLocation from "../utils/GetLocation";
 
 const FilledBox = styled(Box)({
   flex: "1 1 auto",
@@ -47,7 +40,7 @@ export default function Homepage() {
           <Box>
             <Button onClick={handleClickToHomepage}>
               <Typography className="header-appbar" color="text.main">
-                <img className="header-appbar-icon" src={logo} /> Weagolf
+                <img className="header-appbar-icon" alt="weagolf icon" src={logo} /> Weagolf
               </Typography>
             </Button>
           </Box>
@@ -65,7 +58,7 @@ export default function Homepage() {
             <Box>
               <Box>
                 <Typography className="text-header" color="text.main">
-                  Check first <img className="img-text-header" src={golfFlag} />{" "}
+                  Check first <img className="img-text-header" alt="golf flag icon" src={golfFlag} />{" "}
                   <br />
                   and play soon
                 </Typography>
@@ -91,7 +84,7 @@ export default function Homepage() {
           </div>
           <FilledBox />
           <Box>
-            <img className="header-image" src={headerImage} />
+            <img className="header-image" alt="person while playing a golf" src={headerImage} />
           </Box>
           <FilledBox />
         </Box>
@@ -106,16 +99,16 @@ export default function Homepage() {
                 fontWeight="bold"
                 color="text.main"
               >
-                Sunday, 21 August 2023
+                {getDate()}
               </Typography>
               <Typography
                 className="content-location"
                 fontWeight="bold"
                 color="text.main"
               >
-                Bandung
+                {GetLocation()} {/* get the user's location*/}
               </Typography>
-              <img className="content-img-weather" src={iconWindy} />
+              <img className="content-img-weather" alt="weather" src={iconWindy} />
               <Typography
                 className="content-weather"
                 fontWeight="bold"
@@ -194,7 +187,7 @@ export default function Homepage() {
                       >
                         {futureWeather.day}
                       </Typography>
-                      <img className="future-img-weather" src={iconWindy} />
+                      <img className="future-img-weather" alt="future weather" src={iconWindy} />
                       <Typography
                         className="future-weather-weather"
                         fontWeight="bold"

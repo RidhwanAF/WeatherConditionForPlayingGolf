@@ -35,6 +35,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    text-align: center;
   }
 
   .header-content .text-header {
@@ -74,10 +75,12 @@
   }
 
   .body-content .content-date {
+    text-align: center;
     font-size: 16px;
   }
 
   .body-content .content-location {
+    text-align: center;
     font-size: 22px;
   }
 
