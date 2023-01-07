@@ -19,7 +19,8 @@ let theme = createTheme({
     text: {
       main: "#FFFFFF",
       darkBlue: "#2C3E7F",
-      lightBlue: "#476FFB",
+      lightBlue: "#7492FC",
+      nightBlue: "#476FFB",
     },
   },
   typography: {
@@ -34,7 +35,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route index element={<Homepage />} />
+          <Route path="/" index element={<Homepage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

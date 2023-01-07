@@ -1,12 +1,11 @@
-@media screen and (min-width: 769px) {
+@media screen and (max-width: 454px) {
   .background {
     background-color: #ffffff;
   }
 
-  //header
   .header-background {
     width: 100%;
-    height: 500px;
+    height: 350px;
     background: linear-gradient(
       69.82deg,
       #1a4cfb 0%,
@@ -18,16 +17,17 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     padding: 16px;
   }
 
   .header .header-appbar {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
   }
 
   .header .header-appbar-icon {
-    width: 24px;
+    width: 22px;
   }
 
   .header-content {
@@ -38,23 +38,23 @@
   }
 
   .header-content .text-header {
-    font-size: 64px;
+    font-size: 32px;
     font-weight: 900;
     margin-bottom: 24px;
   }
 
   .header-content .img-text-header {
-    width: 75px;
+    width: 32px;
     margin-left: 24px;
   }
 
   .header-content .text-header-desc {
-    font-size: 18px;
+    font-size: 12px;
     margin-bottom: 32px;
   }
 
   .header-image {
-    width: 225px;
+    display: none;
   }
 
   //body
@@ -74,57 +74,57 @@
   }
 
   .body-content .content-date {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .body-content .content-location {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .body-content .content-img-weather {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
   }
 
   .body-content .content-weather {
-    font-size: 48px;
+    font-size: 40px;
   }
 
   .body-content .weather-info {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 32px;
-    gap: 64px;
+    gap: 56px;
   }
 
   .body-content .weather-info .weather-info-humidty {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 16px;
-    font-size: 32px;
+    gap: 12px;
+    font-size: 18px;
   }
 
   .body-content .weather-info .weather-info-wind {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 16px;
-    font-size: 32px;
+    gap: 12px;
+    font-size: 18px;
   }
 
   .body-content .weather-info .weather-info-temperature {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 16px;
-    font-size: 32px;
+    gap: 12px;
+    font-size: 18px;
   }
 
   .body-content .paper-weather-recommendation {
-    height: 175px;
+    height: 150px;
     background: linear-gradient(
       0deg,
       #ccd8ff -20.49%,
@@ -139,7 +139,7 @@
   }
 
   .body-content .paper-weather-recommendation .weather-recommendation-desc {
-    font-size: 28px;
+    font-size: 18px;
     text-align: center;
   }
 
@@ -156,7 +156,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 28px;
+    font-size: 24px;
   }
 
   .body-content .future-weather-content {
@@ -178,7 +178,7 @@
     );
     border-radius: 50px;
     padding: 16px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
   }
 
   .body-content .future-weather-content .future-weather-day {
@@ -186,15 +186,15 @@
   }
 
   .body-content .future-weather-content .future-img-weather {
-    width: 250px;
-    height: 250px;
+    width: 175px;
+    height: 185px;
   }
 
   .body-content .future-weather-content .future-weather-weather {
-    font-size: 28px;
+    font-size: 24px;
   }
 
   .body-content .future-weather-content .future-weather-temperature {
-    font-size: 24px;
+    font-size: 20px;
   }
 }
