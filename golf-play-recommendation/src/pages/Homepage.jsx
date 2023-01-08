@@ -19,6 +19,8 @@ import OpacityTwoToneIcon from "@mui/icons-material/OpacityTwoTone";
 import FutureWeathers from "../data/FutureWeather";
 import getDate from "../utils/GetDate";
 import GetLocation from "../utils/GetLocation";
+import GetWeather from "../utils/GetWeather";
+import { data } from "autoprefixer";
 
 const FilledBox = styled(Box)({
   flex: "1 1 auto",
@@ -33,6 +35,22 @@ export default function Homepage() {
     navigate("/");
   }
 
+  const [main, setMain] = React.useState(null);
+  const [hum, setHum] = React.useState(null);
+  const [wind, setWind] = React.useState(null);
+  const [temp, setTemp] = React.useState(null);
+  const [time, setTime] = React.useState(null);
+
+  const handleWeatherData = (data) => {
+    if (data.weather && Array.isArray(data.weather)) {
+      setMain(data.weather[0].main);
+      setHum(data.main.humidity);
+      setWind((data.wind.speed * 3.6).toFixed(1));
+      setTemp((data.main.temp - 273.15).toFixed(1));
+      setTime(data.timezone);
+    }
+  };
+
   return (
     <div className="background">
       <div className="header-background">
@@ -40,7 +58,12 @@ export default function Homepage() {
           <Box>
             <Button onClick={handleClickToHomepage}>
               <Typography className="header-appbar" color="text.main">
-                <img className="header-appbar-icon" alt="weagolf icon" src={logo} /> Weagolf
+                <img
+                  className="header-appbar-icon"
+                  alt="weagolf icon"
+                  src={logo}
+                />{" "}
+                Weagolf
               </Typography>
             </Button>
           </Box>
@@ -58,7 +81,12 @@ export default function Homepage() {
             <Box>
               <Box>
                 <Typography className="text-header" color="text.main">
-                  Check first <img className="img-text-header" alt="golf flag icon" src={golfFlag} />{" "}
+                  Check first{" "}
+                  <img
+                    className="img-text-header"
+                    alt="golf flag icon"
+                    src={golfFlag}
+                  />{" "}
                   <br />
                   and play soon
                 </Typography>
@@ -84,7 +112,11 @@ export default function Homepage() {
           </div>
           <FilledBox />
           <Box>
-            <img className="header-image" alt="person while playing a golf" src={headerImage} />
+            <img
+              className="header-image"
+              alt="person while playing a golf"
+              src={headerImage}
+            />
           </Box>
           <FilledBox />
         </Box>
@@ -106,15 +138,21 @@ export default function Homepage() {
                 fontWeight="bold"
                 color="text.main"
               >
-                {GetLocation()} {/* get the user's location*/}
+                {GetLocation()}
               </Typography>
-              <img className="content-img-weather" alt="weather" src={iconWindy} />
+              <img
+                className="content-img-weather"
+                alt="weather"
+                src={iconWindy}
+              />
+              <GetWeather render={handleWeatherData} />
+
               <Typography
                 className="content-weather"
                 fontWeight="bold"
                 color="text.main"
               >
-                Windy
+                {main}
               </Typography>
             </Paper>
             <div className="weather-info">
@@ -127,15 +165,15 @@ export default function Homepage() {
                   fontSize="large"
                   sx={{ color: "text.lightBlue" }}
                 />{" "}
-                55%
+                {hum}%
               </Typography>
               <Typography
                 className="weather-info-wind"
                 fontWeight="bold"
                 color="text.lightBlue"
               >
-                <AirIcon fontSize="large" sx={{ color: "text.lightBlue" }} /> 8
-                km/h
+                <AirIcon fontSize="large" sx={{ color: "text.lightBlue" }} />{" "}
+                {wind} km/h
               </Typography>
               <Typography
                 className="weather-info-temperature"
@@ -146,7 +184,7 @@ export default function Homepage() {
                   fontSize="large"
                   sx={{ color: "text.lightBlue" }}
                 />{" "}
-                90°C
+                {temp}°C
               </Typography>
             </div>
             <Paper elevation={0} className="paper-weather-recommendation">
@@ -187,7 +225,11 @@ export default function Homepage() {
                       >
                         {futureWeather.day}
                       </Typography>
-                      <img className="future-img-weather" alt="future weather" src={iconWindy} />
+                      <img
+                        className="future-img-weather"
+                        alt="future weather"
+                        src={iconWindy}
+                      />
                       <Typography
                         className="future-weather-weather"
                         fontWeight="bold"

@@ -1,12 +1,12 @@
-import './App.scss';
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import "./App.scss";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {
   ThemeProvider,
   createTheme,
   responsiveFontSizes,
-} from '@mui/material/styles';
-import Homepage from './pages/Homepage';
+} from "@mui/material/styles";
+import Homepage from "./pages/Homepage";
 
 let theme = createTheme({
   palette: {
@@ -26,7 +26,7 @@ let theme = createTheme({
   typography: {
     fontFamily: ["Montserrat"].join(","),
   },
-})
+});
 
 theme = responsiveFontSizes(theme);
 
@@ -39,7 +39,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
-  )
+  );
 }
 
 export default App;
