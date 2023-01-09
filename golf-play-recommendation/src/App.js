@@ -21,6 +21,7 @@ let theme = createTheme({
       darkBlue: "#2C3E7F",
       lightBlue: "#7492FC",
       nightBlue: "#476FFB",
+      deepBlue: "#0B1A4D",
     },
   },
   typography: {
