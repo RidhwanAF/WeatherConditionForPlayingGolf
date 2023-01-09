@@ -8,6 +8,8 @@ import { TabTitle } from "../utils/Title";
 import Typography from "@mui/material/Typography";
 import logo from "../assets/images/Logo.png";
 import iconWindy from "../assets/images/icon-windy.png";
+import iconRain from "../assets/images/icon-rain.png"
+import iconCloud from "../assets/images/icon-cloud.png"
 import golfFlag from "../assets/images/GolfFlag.png";
 import headerImage from "../assets/images/HeaderImage.png";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -20,7 +22,6 @@ import FutureWeathers from "../data/FutureWeather";
 import getDate from "../utils/GetDate";
 import GetLocation from "../utils/GetLocation";
 import GetWeather from "../utils/GetWeather";
-import { data } from "autoprefixer";
 
 const FilledBox = styled(Box)({
   flex: "1 1 auto",
@@ -34,6 +35,8 @@ export default function Homepage() {
   function handleClickToHomepage() {
     navigate("/");
   }
+
+  const getLocation = GetLocation();
 
   const [main, setMain] = React.useState(null);
   const [hum, setHum] = React.useState(null);
@@ -52,6 +55,34 @@ export default function Homepage() {
       }
     });
   };
+
+  //switching bg color, icon, font color for weather
+  let paperColor = {};
+  let weatherIcon = {};
+  let fontColor = {};
+
+  switch (main) {
+    case "Clouds":
+      paperColor = {
+        background: `linear-gradient(204.05deg, #1A4CFB -63.97%, rgba(26, 76, 251, 0) 99.88%)`,
+      };
+      weatherIcon = iconCloud;
+      fontColor = "text.nightBlue"
+      break;
+    case "Rain":
+      paperColor = {
+        background:
+          "linear-gradient(195.42deg, #142663 6.95%, rgba(26, 76, 251, 0) 104.2%)",
+      };
+      weatherIcon = iconRain;
+      fontColor = "text.darkBlue"
+      break;
+    default:
+      paperColor = {
+        background: `linear-gradient(0deg, #CCD8FF -20.49%, rgba(171, 190, 255, 0) 189.27%)`,
+      };
+      break;
+  }
 
   return (
     <div className="background">
@@ -127,7 +158,7 @@ export default function Homepage() {
         <div className="body-content">
           <FilledBox />
           <Container>
-            <Paper elevation={0} className="paper-weather">
+            <Paper elevation={0} className="paper-weather" style={paperColor}>
               <Typography
                 className="content-date"
                 fontWeight="bold"
@@ -140,19 +171,18 @@ export default function Homepage() {
                 fontWeight="bold"
                 color="text.main"
               >
-                {GetLocation()}
+                {getLocation.principalSubdivision}, {getLocation.city}
               </Typography>
               <img
                 className="content-img-weather"
                 alt="weather"
-                src={iconWindy}
+                src={weatherIcon}
               />
               <GetWeather render={handleWeatherData} />
-
               <Typography
                 className="content-weather"
                 fontWeight="bold"
-                color="text.main"
+                color={fontColor}
               >
                 {main}
               </Typography>

@@ -30,9 +30,9 @@ function GetLocation() {
 
   React.useEffect(() => {
     getLocation();
-  }, []);
+  }, [responseData.latitude, responseData.longitude]);
 
-  return `${responseData.principalSubdivision}, ${responseData.city}`;
+  return responseData;
 }
 
 export default GetLocation;
