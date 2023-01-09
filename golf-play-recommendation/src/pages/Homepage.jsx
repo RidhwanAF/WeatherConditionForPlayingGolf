@@ -42,13 +42,15 @@ export default function Homepage() {
   const [time, setTime] = React.useState(null);
 
   const handleWeatherData = (data) => {
-    if (data.weather && Array.isArray(data.weather)) {
-      setMain(data.weather[0].main);
-      setHum(data.main.humidity);
-      setWind((data.wind.speed * 3.6).toFixed(1));
-      setTemp((data.main.temp - 273.15).toFixed(1));
-      setTime(data.timezone);
-    }
+    setTimeout(() => {
+      if (data.weather && Array.isArray(data.weather)) {
+        setMain(data.weather[0].main);
+        setHum(data.main.humidity);
+        setWind((data.wind.speed * 3.6).toFixed(1));
+        setTemp((data.main.temp - 273.15).toFixed(1));
+        setTime(data.timezone);
+      }
+    });
   };
 
   return (
