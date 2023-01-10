@@ -25,6 +25,7 @@ import FutureWeathers from "../data/FutureWeather";
 import getDate from "../utils/GetDate";
 import GetLocation from "../utils/GetLocation";
 import GetWeather from "../utils/GetWeather";
+import GetFutureWeather from "../utils/GetFutureWeather";
 
 const FilledBox = styled(Box)({
   flex: "1 1 auto",
@@ -40,12 +41,17 @@ export default function Homepage() {
   }
 
   const getLocation = GetLocation();
+  const getFutureWeather = GetFutureWeather();
 
+  // Current Weather
   const [main, setMain] = React.useState(null);
   const [hum, setHum] = React.useState(null);
   const [wind, setWind] = React.useState(null);
   const [temp, setTemp] = React.useState(null);
   const [time, setTime] = React.useState(null);
+
+  // Future Weather
+  // const [provinsi, setProvinsi] = React.useState(null);
 
   const handleWeatherData = (data) => {
     setTimeout(() => {
@@ -58,6 +64,38 @@ export default function Homepage() {
       }
     });
   };
+
+  // data terpilih future weather
+  const desiredTimes = [6, 30, 54];
+  const weatherValues = [];
+  const temperatureValues = [];
+
+  if (Array.isArray(getFutureWeather.params)) {
+    getFutureWeather.params.forEach((param) => {
+      if (param.id === "weather") {
+        param.times.forEach((time) => {
+          if (desiredTimes.includes(parseInt(time.h, 10))) {
+            weatherValues.push(time.name);
+          }
+        });
+      } else if (param.id === "t") {
+        param.times.forEach((time) => {
+          if (desiredTimes.includes(parseInt(time.h, 10))) {
+            temperatureValues.push(time.celcius);
+          }
+        });
+      }
+    });
+    // console.log(weatherValues);
+    // console.log(temperatureValues);
+  }
+
+  // for untuk hari
+  const days = new Array("Tomorrow", "D+2", "D+3");
+
+  let t = new Array();
+  t.push(temperatureValues);
+  console.log(t[0]);
 
   //switching bg color, icon, font color for current weather
   let paperColor = {};
@@ -284,7 +322,7 @@ export default function Homepage() {
                   alignItems="center"
                   gap={1}
                 >
-                  {FutureWeathers.map((futureWeather, key) => (
+                  {weatherValues.map((futureWeather, key) => (
                     <Paper
                       elevation={0}
                       className="paper-future-weather"
@@ -296,7 +334,7 @@ export default function Homepage() {
                         fontWeight="bold"
                         color="text.main"
                       >
-                        {futureWeather.day}
+                        {days[key]}
                       </Typography>
                       <img
                         className="future-img-weather"
@@ -308,14 +346,14 @@ export default function Homepage() {
                         fontWeight="bold"
                         color={fontColor}
                       >
-                        {futureWeather.weather}
+                        {futureWeather}
                       </Typography>
                       <Typography
                         className="future-weather-temperature"
                         fontWeight="bold"
                         color={fontColor}
                       >
-                        {futureWeather.temperature}
+                        {t[0][key]}
                       </Typography>
                     </Paper>
                   ))}
