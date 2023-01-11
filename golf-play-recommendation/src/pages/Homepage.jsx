@@ -21,7 +21,6 @@ import { Container } from "@mui/system";
 import AirIcon from "@mui/icons-material/Air";
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import OpacityTwoToneIcon from "@mui/icons-material/OpacityTwoTone";
-import FutureWeathers from "../data/FutureWeather";
 import getDate from "../utils/GetDate";
 import GetLocation from "../utils/GetLocation";
 import GetWeather from "../utils/GetWeather";
@@ -75,6 +74,33 @@ export default function Homepage() {
       if (param.id === "weather") {
         param.times.forEach((time) => {
           if (desiredTimes.includes(parseInt(time.h, 10))) {
+            //translate in-en future weather
+            if (
+              (time.name == "Cerah Berawan") |
+              (time.name == "Berawan") |
+              (time.name == "Berawan Tebal")
+            ) {
+              time.name = "Clouds";
+            } else if (
+              (time.name == "Hujan Sedang") |
+              (time.name == "Hujan Lebat") |
+              (time.name == "Hujan Lokal")
+            ) {
+              time.name = "Rain";
+            } else if (time.name == "Hujan Ringan") {
+              time.name = "Drizzle";
+            } else if (time.name == "Cerah") {
+              time.name = "Clear";
+            } else if (
+              (time.name == "Udara Kabur") |
+              (time.name == "Asap") |
+              (time.name == "Kabut")
+            ) {
+              time.name = "Atmosphere";
+            } else if (time.name == "Hujan Petir") {
+              time.name = "Thunderstorm";
+            }
+            //push to array
             weatherValues.push(time.name);
           }
         });
@@ -86,8 +112,6 @@ export default function Homepage() {
         });
       }
     });
-    // console.log(weatherValues);
-    // console.log(temperatureValues);
   }
 
   // for untuk hari
@@ -95,13 +119,13 @@ export default function Homepage() {
 
   let t = new Array();
   t.push(temperatureValues);
-  console.log(t[0]);
 
   //switching bg color, icon, font color for current weather
   let paperColor = {};
   let weatherIcon = {};
   let fontColor = {};
 
+  //change paper color for today's weather
   switch (main) {
     case "Clouds":
       paperColor = {
@@ -326,32 +350,35 @@ export default function Homepage() {
                     <Paper
                       elevation={0}
                       className="paper-future-weather"
-                      style={paperColor}
+                      style={{
+                        background:
+                          "linear-gradient(0deg, #CCD8FF -20.49%, rgba(171, 190, 255, 0) 189.27%)",
+                      }}
                       key={key}
                     >
                       <Typography
                         className="future-weather-day"
                         fontWeight="bold"
-                        color="text.main"
+                        color="text.nightBlue"
                       >
                         {days[key]}
                       </Typography>
                       <img
                         className="future-img-weather"
                         alt="future weather"
-                        src={weatherIcon}
+                        src={iconClear}
                       />
                       <Typography
                         className="future-weather-weather"
                         fontWeight="bold"
-                        color={fontColor}
+                        color="text.nightBlue"
                       >
                         {futureWeather}
                       </Typography>
                       <Typography
                         className="future-weather-temperature"
                         fontWeight="bold"
-                        color={fontColor}
+                        color="text.nightBlue"
                       >
                         {t[0][key]}
                       </Typography>

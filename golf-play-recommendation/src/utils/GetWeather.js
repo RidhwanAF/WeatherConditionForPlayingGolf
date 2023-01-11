@@ -3,10 +3,9 @@ import axios from "axios";
 import GetLocation from "./GetLocation";
 
 function GetWeather(props) {
-  const apiKey = "86cc3670b200fdc8dbe86fb47d27b830";
+  const apiKey = process.env.REACT_APP_API_KEY;
   const getLocation = GetLocation();
   const getKota_ApiEndpoint = "https://api.openweathermap.org/data/2.5/weather";
-
   const [responseData, setResponseData] = React.useState({});
 
   const getWeather = () => {
