@@ -9,11 +9,12 @@ function GetLocation() {
   const [longitude, setLongitude] = React.useState("");
   const [responseData, setResponseData] = React.useState({});
 
-  React.useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setLatitude(position.coords.latitude);
-      setLongitude(position.coords.longitude);
-    });
+  navigator.geolocation.getCurrentPosition((position) => {
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
+  });
+
+  const getLocation = () => {
     axios
       .get(
         `${getCityName_ApiEndpoint}latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
@@ -25,8 +26,13 @@ function GetLocation() {
         alert("Oops! Something went wrong, Please try again...");
         console.error(e);
       });
-  }, [latitude, longitude]);
-  return `${responseData.principalSubdivision}, ${responseData.city}`;
+  };
+
+  React.useEffect(() => {
+    getLocation();
+  }, [responseData.latitude, responseData.longitude]);
+
+  return responseData;
 }
 
 export default GetLocation;
