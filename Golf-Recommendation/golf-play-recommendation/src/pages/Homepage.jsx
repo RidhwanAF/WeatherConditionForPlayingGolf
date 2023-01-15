@@ -26,7 +26,6 @@ import getDate from "../utils/GetDate";
 import GetLocation from "../utils/GetLocation";
 import GetWeather from "../utils/GetWeather";
 import GetFutureWeather from "../utils/GetFutureWeather";
-// import GetRecommendation from "../utils/GetRecommendation";
 
 const FilledBox = styled(Box)({
   flex: "1 1 auto",
