@@ -279,7 +279,7 @@ export default function Homepage() {
         "linear-gradient(0deg, #ccd8ff -20.49%, rgba(171, 190, 255, 0) 189.27%)",
     };
     recommendText = "you are recommended to play golf with today's weather";
-  } else {
+  } else if (recommendation == "no") {
     textWeatherRecommendationStyle = {
       color: "#E84242"
     }
@@ -289,6 +289,15 @@ export default function Homepage() {
     };
     recommendText =
       "Sorry, you are not recommended to play golf with today's weather";
+  } else {
+    textWeatherRecommendationStyle = {
+      color : "#476FFB"
+    }
+    paperWeatherReccomendationStyle = {
+      background:
+        "linear-gradient(0deg, #ccd8ff -20.49%, rgba(171, 190, 255, 0) 189.27%)",
+    };
+    recommendText = "Please Wait...";
   }
 
   return (
