@@ -1,4 +1,4 @@
-@media screen and (min-width: 455px) and (max-width: 600px) {
+@media screen and (min-width: 601px) and (max-width: 768px) {
   .background {
     background-color: #ffffff;
   }
@@ -22,12 +22,12 @@
   }
 
   .header .header-appbar {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
   }
 
   .header .header-appbar-icon {
-    width: 22px;
+    width: 24px;
   }
 
   .header-content {
@@ -38,23 +38,23 @@
   }
 
   .header-content .text-header {
-    font-size: 32px;
+    font-size: 48px;
     font-weight: 900;
     margin-bottom: 24px;
   }
 
   .header-content .img-text-header {
-    width: 32px;
+    width: 48px;
     margin-left: 24px;
   }
 
   .header-content .text-header-desc {
-    font-size: 12px;
+    font-size: 16px;
     margin-bottom: 32px;
   }
 
   .header-image {
-    width: 150px;
+    width: 175px;
   }
 
   //body
@@ -64,7 +64,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 50px;
-    margin-top: 24px;
+    margin-top: 64px;
     padding: 16px;
   }
 
@@ -84,7 +84,7 @@
   }
 
   .body-content .content-weather {
-    font-size: 42px;
+    font-size: 48px;
   }
 
   .body-content .weather-info {
@@ -93,40 +93,35 @@
     justify-content: center;
     align-items: center;
     margin: 32px;
-    gap: 56px;
+    gap: 64px;
   }
 
   .body-content .weather-info .weather-info-humidty {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 8px;
-    font-size: 14px;
+    gap: 16px;
+    font-size: 24px;
   }
 
   .body-content .weather-info .weather-info-wind {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 8px;
-    font-size: 14px;
+    gap: 16px;
+    font-size: 24px;
   }
 
   .body-content .weather-info .weather-info-temperature {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 8px;
-    font-size: 14px;
+    gap: 16px;
+    font-size: 24px;
   }
 
   .body-content .paper-weather-recommendation {
     height: 175px;
-    background: linear-gradient(
-      0deg,
-      #ccd8ff -20.49%,
-      rgba(171, 190, 255, 0) 189.27%
-    );
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -136,7 +131,7 @@
   }
 
   .body-content .paper-weather-recommendation .weather-recommendation-desc {
-    font-size: 22px;
+    font-size: 24px;
     text-align: center;
   }
 

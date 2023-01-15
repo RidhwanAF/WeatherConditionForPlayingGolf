@@ -1,5 +1,6 @@
 import { Box, Button, Grid, Paper, styled } from "@mui/material";
 import * as React from "react";
+import axios from "axios";
 import "../assets/scss/Homepage.scss";
 import "../assets/scss/Homepage768px.scss";
 import "../assets/scss/Homepage574px.scss";
@@ -25,6 +26,7 @@ import getDate from "../utils/GetDate";
 import GetLocation from "../utils/GetLocation";
 import GetWeather from "../utils/GetWeather";
 import GetFutureWeather from "../utils/GetFutureWeather";
+// import GetRecommendation from "../utils/GetRecommendation";
 
 const FilledBox = styled(Box)({
   flex: "1 1 auto",
@@ -41,6 +43,7 @@ export default function Homepage() {
 
   const getLocation = GetLocation();
   const getFutureWeather = GetFutureWeather();
+  const [recommendation, setRecommendation] = React.useState();
 
   // Current Weather
   const [main, setMain] = React.useState(null);
@@ -49,20 +52,32 @@ export default function Homepage() {
   const [temp, setTemp] = React.useState(null);
   const [time, setTime] = React.useState(null);
 
-  // Future Weather
-  // const [provinsi, setProvinsi] = React.useState(null);
-
   const handleWeatherData = (data) => {
     setTimeout(() => {
       if (data.weather && Array.isArray(data.weather)) {
         setMain(data.weather[0].main);
         setHum(data.main.humidity);
-        setWind((data.wind.speed * 3.6).toFixed(1));
+        setWind((data.wind.speed * 10).toFixed(1));
         setTemp((data.main.temp - 273.15).toFixed(1));
         setTime(data.timezone);
       }
     });
   };
+
+  //recommendation to play golf
+  let overcast = 0;
+  let rainy = 0;
+  let sunny = 0;
+  let tempCool = 0;
+  let tempHot = 0;
+  let tempMild = 0;
+  let humHigh = 0;
+  let humNormal = 0;
+  let windyFalse = 0;
+  let windyTrue = 0;
+  let recommendText = "Please Wait...";
+  let paperWeatherReccomendationStyle = {}
+  let textWeatherRecommendationStyle = {}
 
   // data terpilih future weather
   const desiredTimes = [6, 30, 54];
@@ -134,6 +149,9 @@ export default function Homepage() {
       };
       weatherIcon = iconCloud;
       fontColor = "text.nightBlue";
+      overcast = 1;
+      rainy = 0;
+      sunny = 0;
       break;
     case "Rain" || "Drizzle":
       paperColor = {
@@ -142,6 +160,9 @@ export default function Homepage() {
       };
       weatherIcon = iconRain;
       fontColor = "text.darkBlue";
+      overcast = 0;
+      rainy = 1;
+      sunny = 0;
       break;
     case "Clear":
       paperColor = {
@@ -150,6 +171,9 @@ export default function Homepage() {
       };
       weatherIcon = iconClear;
       fontColor = "text.nightBlue";
+      overcast = 0;
+      rainy = 0;
+      sunny = 1;
       break;
     case "Atmosphere":
       paperColor = {
@@ -158,6 +182,9 @@ export default function Homepage() {
       };
       weatherIcon = iconAtmosphere;
       fontColor = "text.main";
+      overcast = 0;
+      rainy = 0;
+      sunny = 1;
       break;
     case "Thunderstorm":
       paperColor = {
@@ -166,6 +193,9 @@ export default function Homepage() {
       };
       weatherIcon = iconThunderstorm;
       fontColor = "text.deepBlue";
+      overcast = 0;
+      rainy = 1;
+      sunny = 0;
       break;
     case "Snow":
       paperColor = {
@@ -174,6 +204,9 @@ export default function Homepage() {
       };
       weatherIcon = iconSnow;
       fontColor = "text.main";
+      overcast = 0;
+      rainy = 0;
+      sunny = 0;
       break;
     default:
       paperColor = {
@@ -183,6 +216,80 @@ export default function Homepage() {
       weatherIcon = iconClear;
       fontColor = "text.main";
       break;
+  }
+
+  //getRecommendation to play golf
+  if (temp <= 16) {
+    tempCool = 1;
+    tempHot = 0;
+    tempMild = 0;
+  } else if (temp >= 17) {
+    tempCool = 0;
+    tempHot = 0;
+    tempMild = 1;
+  } else if (temp >= 28) {
+    tempCool = 0;
+    tempHot = 1;
+    tempMild = 0;
+  }
+
+  if (hum <= 60) {
+    humHigh = 0;
+    humNormal = 1;
+  } else {
+    humHigh = 1;
+    humNormal = 0;
+  }
+
+  if (wind <= 20) {
+    windyTrue = 0;
+    windyFalse = 1;
+  } else {
+    windyTrue = 1;
+    windyFalse = 0;
+  }
+
+  const weatherData = [
+    {
+      Outlook_overcast: overcast,
+      Outlook_rainy: rainy,
+      Outlook_sunny: sunny,
+      Temperature_cool: tempCool,
+      Temperature_hot: tempHot,
+      Temperature_mild: tempMild,
+      Humidity_high: humHigh,
+      Humidity_normal: humNormal,
+      Windy_False: windyFalse,
+      Windy_True: windyTrue,
+    },
+  ];
+
+  axios
+    .post("http://127.0.0.1:5000/predict", weatherData)
+    .then((res) => {
+      setRecommendation(res.data.Prediction[0]);
+    })
+    .catch((e) => console.log(e));
+
+  if (recommendation == "yes") {
+    textWeatherRecommendationStyle = {
+      color : "#476FFB"
+    }
+    paperWeatherReccomendationStyle = {
+      background:
+        "linear-gradient(0deg, #ccd8ff -20.49%, rgba(171, 190, 255, 0) 189.27%)",
+    };
+    recommendText = "you are recommended to play golf with today's weather";
+  } else {
+    textWeatherRecommendationStyle = {
+      color: "#E84242"
+    }
+    paperWeatherReccomendationStyle = {
+      background:
+        "linear-gradient(0deg, #FFCCCC -20.49%, rgba(255, 171, 171, 0) 189.27%)",
+    };
+    recommendText =
+      "Sorry, you are not recommended to play golf with today's weather";
   }
 
   return (
@@ -307,7 +414,7 @@ export default function Homepage() {
                 color="text.lightBlue"
               >
                 <AirIcon fontSize="large" sx={{ color: "text.lightBlue" }} />{" "}
-                {wind} km/h
+                {wind} m/h
               </Typography>
               <Typography
                 className="weather-info-temperature"
@@ -321,13 +428,17 @@ export default function Homepage() {
                 {temp}°C
               </Typography>
             </div>
-            <Paper elevation={0} className="paper-weather-recommendation">
+            <Paper
+              elevation={0}
+              className="paper-weather-recommendation"
+              style={paperWeatherReccomendationStyle}
+            >
               <Typography
                 className="weather-recommendation-desc"
                 fontWeight="bold"
-                color="text.nightBlue"
+                color={textWeatherRecommendationStyle}
               >
-                You are recommended to play golf with today's weather
+                {recommendText}
               </Typography>
             </Paper>
             <div className="future-weathers">
